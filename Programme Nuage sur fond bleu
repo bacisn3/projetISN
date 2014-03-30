@@ -1,0 +1,55 @@
+# Initialisation
+import pygame
+import random
+pygame.init()
+width=800
+height=600
+nbNuages=5
+continuer = True
+#vitesse et position des nuages
+listV=[1] 
+listX=[1]
+listY=[1]
+# Import des images
+fond =pygame.image.load('ciel.jpeg')
+fenetre = pygame.display.set_mode((width, height))
+fenetre.blit(fond, (0,0))
+nuage = pygame.image.load("nuage1.png").convert_alpha()
+nuage2 = pygame.image.load("nuage2.png").convert_alpha()
+
+
+
+def deplaceDroite(liste,vitesse):
+
+	for i in range(1,len(liste)):
+
+		liste[i]=liste[i]-vitesse[i]
+
+		if liste[i]<= -800:
+
+			liste[i]=width
+
+	return liste
+
+while continuer:	
+    
+    for i in range (1,nbNuages):
+
+	listX.extend([random.randint(0, width)])
+
+	listY.extend([random.randint(0, height-250)])
+
+	listV.extend([random.randint(1,1)])
+    for i in range(1,nbNuages):
+        fenetre.set_at((listX[i], listY[i]), (0, 0, 0))
+        fenetre.blit(fond, (0,0))
+    deplaceDroite(listX,listV)
+    
+    for i in range (1,nbNuages):  
+        fenetre.blit(nuage, (listX[i],listY[i]))  
+        fenetre.blit(nuage2, (listX[i]+400,listY[i]-50))
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+                continuer = False
+    
+    pygame.display.flip()        
