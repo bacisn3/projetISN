@@ -3,3 +3,15 @@ Consignes et évalutions
 27 mars
 Déposer un fichier texte présentant votre projet son but et les étapes nécessaires pour y parvenir.
 A partir du fichier exemple, faire un programme affichant l'écran de jeu et permettant de le quitter par exemple en appuyant sur la barre espace...
+
+3 avril
+Faire un commit pendant la semaine...
+
+Faire tourner les programmes orientés objet du document : https://www.dropbox.com/s/5cha98exp1ltpst/PremierProgramme.pdf
+
+- Faire un programme qui crée un objet Eleve qui a pour attribut un nom, une classe et un état (present ou absent qui sera codé par un booléen)
+créer deux instances d'Eleve qui se nomment eleve1 (Jean, TS6, present) et eleve2 (Julie, TS7, absente)
+- Créer une liste qui contient tous les objets Eleves. Créer une fonction qui prend comme paramètre la liste et compte combien d'élèves de cette liste sont présents.
+- Faire un fonction appel_present qui prend comment paramètre un objet Eleve et qui écrit présent pour l'état de Eleve. Appliquer cette fonction sur Julie et vérifier qu'elle est présente.
+- Faire un programme qui affiche un sprite (issue d'une image jpg)
+
