@@ -16,3 +16,11 @@ créer deux instances d'Eleve qui se nomment eleve1 (Jean, TS6, present) et elev
 - Faire un fonction appel_present qui prend comment paramètre un objet Eleve et qui écrit présent pour l'état de Eleve. Appliquer cette fonction sur Julie et vérifier qu'elle est présente.
 - Faire un programme qui affiche un sprite (issue d'une image jpg)
 
+10 avril
+Comprendre les tutoriels sur les sprites
+et faire bouger un sprite à l'écran
+
+http://programarcadegames.com/index.php?lang=fr
+
+Créer une fonction qui reçoit comme argument un objet sprite et qui le déplace vers la gauche de l'écran en modifiant ses coordonnées.
+
