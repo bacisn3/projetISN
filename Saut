@@ -1,0 +1,78 @@
+import pygame
+from pygame.locals import *
+import random
+pos= [0,0]
+pos[1]=350
+pos[0]=100
+BLACK = ( 0, 0, 0)
+WHITE = (255, 255, 255)
+RED = (255, 0, 0)
+saut=3
+bateau=0 
+class Block(pygame.sprite.Sprite):
+    
+    def __init__(self, color, width, height):
+        
+        pygame.sprite.Sprite.__init__(self)
+ 
+        self.image = pygame.Surface([width, height])
+        self.image.fill(color)
+ 
+        self.rect = self.image.get_rect()
+ 
+pygame.init()
+ 
+screen_width = 600
+screen_height = 400
+screen = pygame.display.set_mode([screen_width, screen_height])
+ 
+block_list = pygame.sprite.Group()
+ 
+all_sprites_list = pygame.sprite.Group()
+
+
+player = Block(RED, 20, 15)
+all_sprites_list.add(player)
+ 
+done = False
+ 
+clock = pygame.time.Clock()
+ 
+score = 0
+ 
+# -------- Main Program Loop -----------
+while not done:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            done = True
+ 
+    screen.fill(WHITE)
+ 
+    player.rect.x = pos[0]
+    player.rect.y = pos[1]
+    if saut==3:
+        if event.type == KEYDOWN and event.key == K_SPACE:
+            print("Espace")
+            saut=0
+    if saut==0:
+        pos[1]=pos[1]-((39-bateau)/4)
+        bateau=bateau+1
+        if bateau==40:
+            saut=1
+            bateau=0
+    if saut==1:
+        pos[1]=pos[1]+(bateau/4)
+        bateau=bateau+1
+        if bateau==40:
+            saut=3
+            bateau=0
+
+    blocks_hit_list = pygame.sprite.spritecollide(player, block_list, True)
+
+    all_sprites_list.draw(screen)
+ 
+    clock.tick(60)
+ 
+    pygame.display.flip()
+ 
+pygame.quit()
