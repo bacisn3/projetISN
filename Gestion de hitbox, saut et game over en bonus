@@ -1,0 +1,104 @@
+import pygame
+from pygame.locals import *
+import random
+gameover=False
+pObs= [0,0]
+pObs[1]=270
+pObs[0]=600
+pos= [0,0]
+pos[1]=270
+pos[0]=50
+score=0
+saut=3
+tpsSaut=30
+bateau=0 
+BLACK = ( 0, 0, 0)
+WHITE = (255, 255, 255)
+RED = (255, 0, 0)
+GO = pygame.image.load("GAMEOVER.png")
+class Block(pygame.sprite.Sprite):
+    
+    def __init__(self, color, width, height):
+        
+        pygame.sprite.Sprite.__init__(self)
+ 
+        self.image = pygame.Surface([width, height])
+        self.image.fill(color)
+ 
+        self.rect = self.image.get_rect()
+ 
+pygame.init()
+screen_width = 600
+screen_height = 400
+screen = pygame.display.set_mode([screen_width, screen_height])
+ 
+block_list = pygame.sprite.Group()
+ 
+all_sprites_list = pygame.sprite.Group()
+
+player = Block(RED, 10, 20)
+all_sprites_list.add(player)
+
+obstacle = Block(BLACK, 20, 20)
+all_sprites_list.add(obstacle)
+block_list.add(obstacle)
+ 
+done = False
+ 
+clock = pygame.time.Clock()
+while not done:
+    all_sprites_list.add(obstacle) #ajoute la forme visuelle du carre
+    block_list.add(obstacle) #ajoute la hitbox du carre
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT: 
+            done = True
+            
+    while not gameover:
+        
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                done = True
+                gameover=True
+                
+        screen.fill(WHITE)
+        if pObs[0]<=-20:
+            pObs[0]=650
+        pObs[0]=pObs[0]-8
+        if saut==3:
+            if event.type == KEYDOWN and event.key == K_SPACE:
+                print("Espace")
+                saut=0
+        if saut==0:
+            pos[1]=pos[1]-(((tpsSaut-1)-bateau)/4)
+            bateau=bateau+1
+            if bateau==tpsSaut:
+                saut=1
+                bateau=0
+        if saut==1:
+            pos[1]=pos[1]+(bateau/4)
+            bateau=bateau+1 
+            if bateau==tpsSaut:
+                saut=3
+                bateau=0
+        player.rect.x = pos[0]
+        player.rect.y = pos[1]
+    
+        obstacle.rect.x = pObs[0]
+        obstacle.rect.y = pObs[1]
+    
+        all_sprites_list.draw(screen)
+        blocks_hit_list = pygame.sprite.spritecollide(player, block_list, True)
+        for block in blocks_hit_list:
+            gameover=True
+        clock.tick(60)
+        pygame.display.flip()
+        
+    screen.fill(BLACK)
+    screen.blit(GO, ((screen_width/2)-150,(screen_height/2)-150))
+    pObs[0]=650
+    if event.type == KEYDOWN and event.key == K_SPACE:
+            print("Espace")
+            gameover=False
+    pygame.display.flip()
+
+pygame.quit()
