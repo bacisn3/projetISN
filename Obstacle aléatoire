@@ -1,0 +1,70 @@
+import pygame
+from pygame.locals import *
+import random
+pObs= [0,0]
+pObs[1]= 550 #le Y du sprite 1
+pObs[0]= 800 #le X du sprite 1
+
+pouet = [0]
+pouet2 = [0]
+BLACK = ( 0, 0, 0)
+WHITE = (255, 255, 255)
+RED = (255, 0, 0)
+class Block(pygame.sprite.Sprite):
+    
+    def __init__(self, color, width, height):
+        
+        pygame.sprite.Sprite.__init__(self)
+ 
+        self.image = pygame.Surface([width, height])
+        self.image.fill(color)
+ 
+        self.rect = self.image.get_rect()
+ 
+pygame.init()
+screen_width = 800
+screen_height = 600
+screen = pygame.display.set_mode([screen_width, screen_height])
+ 
+block_list = pygame.sprite.Group()
+ 
+all_sprites_list = pygame.sprite.Group()
+
+
+obstacle1 = Block(BLACK, 30, 30)
+
+
+all_sprites_list.add(obstacle1)
+ 
+done = False
+ 
+clock = pygame.time.Clock()
+while not done:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            
+            done = True
+ 
+    screen.fill(WHITE)
+    
+    if pObs[0]<=-20:
+        pObs[0]=800
+        pouet = random.randint(1, 2)
+        if pouet == 1:
+            pObs[1]= 450
+        else:
+            pObs[1]= 520
+    pObs[0]=pObs[0]-10
+    
+    
+    obstacle1.rect.x = pObs[0]
+    obstacle1.rect.y = pObs[1]
+    
+    
+    all_sprites_list.draw(screen)
+ 
+    clock.tick(60)
+ 
+    pygame.display.flip()
+ 
+pygame.quit()
